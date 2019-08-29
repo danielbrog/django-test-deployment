@@ -7,7 +7,7 @@ django.setup()
 
 #fake population script
 
-from basic_app.models import Hit
+from basic_app.models import Hit, Batter, Pitcher
 
 
 
@@ -50,6 +50,42 @@ def import_data():
                 landing_location_y=row['landing_location_y'],
                 hang_time=row['hang_time'])
             p.save()
+
+
+            batter = Batter.objects.filter(batterid=row['batterid'])
+            if len(batter)==0:
+                if row['batterteamid'] == row['hometeamid']:
+                    teamid = row['hometeamid']
+                    teamname = row['hometeamname']
+                else:
+                    teamid = row['awayteamid']
+                    teamname = row['awayteamname']
+                batter = Batter(name=row['battername'],
+                                batside=row['batside'],
+                                teamid=teamid,
+                                teamname=teamname,
+                                batterid=row['batterid'])
+                batter.save()
+
+            pitcher = Pitcher.objects.filter(pitcherid=row['pitcherid'])
+            if len(pitcher)==0:
+                if row['pitcherteamid'] == row['hometeamid']:
+                    teamid = row['hometeamid']
+                    teamname = row['hometeamname']
+                else:
+                    teamid = row['awayteamid']
+                    teamname = row['awayteamname']
+                pitcher = Pitcher(name=row['pitchername'],
+                                pitchside=row['pitchside'],
+                                teamid=teamid,
+                                teamname=teamname,
+                                pitcherid=row['pitcherid'],
+                                max_pitch_speed=row['pitch_speed'])
+                pitcher.save()
+            else:
+                if pitcher[0].max_pitch_speed < float(row['pitch_speed']):
+                    pitcher.update(max_pitch_speed=row['pitch_speed'])
+            
 
 if __name__ =='__main__':
     print("importing data!")

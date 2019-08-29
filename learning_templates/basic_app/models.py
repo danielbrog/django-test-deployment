@@ -39,3 +39,31 @@ class Hit(models.Model):
 
     def __str__(self):
         return self.date.strftime('%m/%d/%Y')+" : "+self.battername
+
+
+class Batter(models.Model):
+    name=models.CharField(max_length=256)
+    batterid=models.PositiveIntegerField()
+    batside=models.CharField(max_length=1)
+    teamid=models.PositiveIntegerField()
+    teamname=models.CharField(max_length=256)
+
+    class Meta():
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name + 'from team ' + self.teamname
+
+class Pitcher(models.Model):
+    name=models.CharField(max_length=256)
+    pitcherid=models.PositiveIntegerField()
+    pitchside=models.CharField(max_length=1)
+    max_pitch_speed=models.DecimalField(max_digits=10, decimal_places=7)
+    teamid=models.PositiveIntegerField()
+    teamname=models.CharField(max_length=256)
+
+    class Meta():
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name + 'from team ' + self.teamname

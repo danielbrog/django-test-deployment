@@ -9,26 +9,45 @@
                 {% csrf_token %}
                 <input type="submit" class="btn btn-primary" value="Submit"/>
 
-        {% if hit_data %}
-            <p>HitData:</p>
+        {% if batter_info %}
+        <div class="batterInfo">
+            <p>Batter Data:</p>
             <table>
                     <thead>
-                        <th> Date</th>
                         <th> Batter Name</th>
+                        <th> Team name</th>
                     </thead>
-                    {% for hit in hit_data %}
-                    {{hit}}
+                    {% for batter in batter_info %}
                     <tr>
-                        <td> {{ hit.date }}</td>
-                        <td> <a href="/basic_app/batter/{{hit.batterid}}">{{ hit.battername }}</a></td>
+                        <td> <a href="/basic_app/batter/{{batter.batterid}}">{{ batter.name }}</a></td>
+                        <td> {{ batter.teamname }}</td>
                     </tr>
                     {% endfor %}
                 </table>
                 {% else %}
                 <p> NO hit data FOUND!</p>
+                </div>
         {% endif %}
 
-
+        {% if pitcher_info %}
+        <div class="PitcherInfo">
+            <p>Pitcher Data:</p>
+            <table>
+                    <thead>
+                        <th> Pitcher Name</th>
+                        <th> Team Name</th>
+                    </thead>
+                    {% for pitcher in pitcher_info %}
+                    <tr>
+                        <td> <a href="/basic_app/batter/{{pitcher.pitcherid}}">{{ pitcher.name }}</a>{{pitcher.pitcherid}}</td>
+                        <td> {{ pitcher.teamname }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p> NO hit data FOUND!</p>
+                </div>
+        {% endif %}
 
                 
 

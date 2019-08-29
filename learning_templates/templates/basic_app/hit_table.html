@@ -2,6 +2,22 @@
 {% extends "basic_app/base.html" %}
 {% load staticfiles %}
 {% block body_block %}
+<script type="text/javascript">
+const hit_data = []
+'{% for hit in hit_data %}'
+    hit_data.push({
+                x: parseInt('{{hit.landing_location_x}}', 10),
+                y: parseInt('{{hit.landing_location_y}}', 10),
+                pitcher: '{{hit.pitchername}}',
+                pitchside: '{{hit.pitchside}}',
+                launchspeed: '{{hit.launch_speed}}',
+                result_type: '{{hit.result_type}}',
+                date: '{{hit.date}}',
+                pitch_type: '{{pitch_type}}',
+            })
+'{% endfor %}'
+</script>
+
 
 <script src="{% static 'js/scatterplot.js' %}"></script>
 

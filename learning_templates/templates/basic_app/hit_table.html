@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "basic_app/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+
+<script src="{% static 'js/scatterplot.js' %}"></script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+        <div style="height: 400px; width: 400px; background-image: url('{% static 'images/baseball_background.svg' %}');  background-repeat: no-repeat;
+        background-size: 100% 100%;">
+        <div id="chartContainer" style="position: relative; "></div></div>
+
+
+{% endblock %}

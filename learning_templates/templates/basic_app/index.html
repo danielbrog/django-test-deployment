@@ -1,7 +1,38 @@
 <!DOCTYPE html>
     {% extends "basic_app/base.html" %}
     {% block body_block %}
-        <h1>Welcome to Index</h1>
-        <p>{{ text|cut:'world' }}
-        {{number|add:'99'}}</p>
+        <h1>Welcome to Baseball Stats!</h1>
+
+
+        <form method="POST">
+                {{form.as_p}}
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary" value="Submit"/>
+
+        {% if hit_data %}
+            <p>HitData:</p>
+            <table>
+                    <thead>
+                        <th> Date</th>
+                        <th> Batter Name</th>
+                    </thead>
+                    {% for hit in hit_data %}
+                    {{hit}}
+                    <tr>
+                        <td> {{ hit.date }}</td>
+                        <td> <a href="/basic_app/batter/{{hit.batterid}}">{{ hit.battername }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p> NO hit data FOUND!</p>
+        {% endif %}
+
+
+
+                
+
+
+
     {% endblock %}
+
